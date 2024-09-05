@@ -21,14 +21,14 @@ public class RouterFunctionConfig {
     // http://localhost:8080/routes
     // http://localhost:8080/routes/1
     @Bean
-    public RouterFunction<ServerResponse> route(ApiRouteHandler apiRouteHandler) {
+    public RouterFunction<ServerResponse> route(ApiRouteHandler apiRouteHandler, LoggingFilter loggingFilter) {
         return RouterFunctions.nest(path("/routes"),
-                RouterFunctions.route(POST("").and(accept(APPLICATION_JSON)), apiRouteHandler::create)
-                        .andRoute(GET(""), apiRouteHandler::getAll)
-                        .andRoute(GET("/{routeId}"), apiRouteHandler::getById)
-                        .andRoute(PUT("/{routeId}").and(accept(APPLICATION_JSON)), apiRouteHandler::update)
-                        .andRoute(DELETE("/{routeId}"), apiRouteHandler::delete)
-        );
+                        RouterFunctions.route(POST("").and(accept(APPLICATION_JSON)), apiRouteHandler::create)
+                                .andRoute(GET(""), request -> apiRouteHandler.getAll())
+                                .andRoute(GET("/{routeId}"), apiRouteHandler::getById)
+                                .andRoute(PUT("/{routeId}").and(accept(APPLICATION_JSON)), apiRouteHandler::update)
+                                .andRoute(DELETE("/{routeId}"), apiRouteHandler::delete)
+                )
+                .filter(loggingFilter);
     }
-
 }

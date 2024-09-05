@@ -24,7 +24,7 @@ public class ApiRouteHandler {
                 .switchIfEmpty(ServerResponse.badRequest().build());
     }
 
-    public Mono<ServerResponse> getAll(ServerRequest request) {
+    public Mono<ServerResponse> getAll() {
         Flux<ApiRoute> routes = apiRouteRepository.findAll();
         return ServerResponse.ok().body(routes, ApiRoute.class);
     }
