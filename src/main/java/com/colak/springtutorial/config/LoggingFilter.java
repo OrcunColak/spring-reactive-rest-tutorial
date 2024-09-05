@@ -22,7 +22,7 @@ public class LoggingFilter implements HandlerFilterFunction<ServerResponse, Serv
                     if (!signal.isOnComplete()) {
                         long executionTime = System.currentTimeMillis() - start;
                         log.info("Request: {} {} executed in {} ms",
-                                request.methodName(), request.path(), executionTime);
+                                request.method().name(), request.path(), executionTime);
                     }
                 });
     }
