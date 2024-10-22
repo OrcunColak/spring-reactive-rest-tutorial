@@ -20,6 +20,8 @@ public class RouterFunctionConfig {
 
     // http://localhost:8080/routes
     // http://localhost:8080/routes/1
+
+    // Instead of using RestController annotations, we'll use Functional Endpoint approach
     @Bean
     public RouterFunction<ServerResponse> route(ApiRouteHandler apiRouteHandler, LoggingFilter loggingFilter) {
         return RouterFunctions.nest(path("/routes"),

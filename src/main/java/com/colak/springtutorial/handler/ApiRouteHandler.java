@@ -16,7 +16,10 @@ public class ApiRouteHandler {
 
     private final ApiRouteRepository apiRouteRepository;
 
-
+    // Returns response by
+    // ServerResponse.ok().body(foo,Foo.class)
+    // ServerResponse.ok().bodyValue(foo)
+    // ServerResponse.badRequest().build()
     public Mono<ServerResponse> create(ServerRequest request) {
         Mono<ApiRoute> apiRouteMono = request.bodyToMono(ApiRoute.class);
         return apiRouteMono.flatMap(apiRouteRepository::save)
